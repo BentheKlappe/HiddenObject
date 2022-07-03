@@ -5,19 +5,27 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    //referencing text fields for points
+    //Audio
+    [Header("Audio")]
+    public AudioClip NewHighscore;
+    private AudioSource audioSource;
+
+    [Header("scores in game")]
+    //referencing text fields for points while playing
     public Text currentPointsText;
     public Text highscoreText;
 
     int points = 0;
     int highScore = 0;
 
+    [Header("Time & Items")]
     //variables for adding time bonus
     public float timeBonus = 90;
 
     //keeping track of total amount of items left in game
     public int totalAmountOfItems = 6;
 
+    [Header("Overlay settings")]
     //get the overlay screen and set highscores there too
     public GameObject overlayScreen;
 
@@ -27,6 +35,9 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
+        //Reference to the audiomanager
+        audioSource = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioSource>();
+
         //setting the highscore
         highScore = PlayerPrefs.GetInt("highScore", 0);
 
@@ -43,7 +54,7 @@ public class ScoreManager : MonoBehaviour
     {
         if(totalAmountOfItems > 0)
         {
-            //higher bonus if you click faster
+            //higher bonus if you click faster on items
             timeBonus -= Time.deltaTime;
         }
     }
@@ -86,7 +97,8 @@ public class ScoreManager : MonoBehaviour
             
             PlayerPrefs.SetInt("overlayHighScore", points);
             newHighscore.text = "You got a new highscore!";
+
+            audioSource.PlayOneShot(NewHighscore);
         }
     }
-
 }

@@ -7,6 +7,7 @@ public class HOController : MonoBehaviour
 {
     //getting object name and game text of each hidden object
     public static string objectName;
+    [Tooltip("Select the UI textbox that corresponds to this item")]
     public GameObject objectText;
 
     //sounds
