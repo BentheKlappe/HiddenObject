@@ -13,11 +13,16 @@ public class HOController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip itemClicked;
 
+    //referencing scoremanager 
+    ScoreManager scoreManager;
 
     private void Start()
     {
         //Gets the audioSource from the AudioManager
         audioSource = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioSource>();
+
+        //Gets the reference to the script 'scoremanager'
+        scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
     }
 
     //If an object is clicked, destroy object and text
@@ -29,6 +34,9 @@ public class HOController : MonoBehaviour
 
         //Play a sound
         audioSource.PlayOneShot(itemClicked);
+
+        //add the points to the total score
+        scoreManager.addPoints();
     }
 
 }
